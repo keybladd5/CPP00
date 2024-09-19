@@ -23,24 +23,27 @@ Contact::~Contact(void)
     return;
 }
 
-std::string Contact::get_field(std::string field) const
+std::string Contact::get_field(int type) const
 {
-	if (field == "firstname")
+	
+	if (type == FNAME)
 		return (Contact::_firstname);
-	else if (field == "lastname")
+	else if (type == LNAME)
 		return (Contact::_lastname);
-	else if (field == "nickname")
+	else if (type == NNAME)
 		return (Contact::_nickname);
-	else if (field == "phone_number")
+	else if (type == PNUMBER)
 		return (Contact::_phone_number);
-	else if (field == "darkest_secret")
+	else if (type == DSECRET)
 		return (Contact::_darkest_secret);
 	else
 		return ("");
 }
 
-void	Contact::set_field(int type, std::string field)
+int	Contact::set_field(int type, std::string field)
 {
+	if (!field.length())
+		return (1);
 	if (type == FNAME)
 		Contact::_firstname = field;
 	else if (type == LNAME)
@@ -48,16 +51,31 @@ void	Contact::set_field(int type, std::string field)
 	else if (type == NNAME)
 		Contact::_nickname = field;
 	else if (type == PNUMBER)
+	{
+		for (int i = 0; i < (int)field.length(); i++)
+		{
+			if (field[i] < '0' || field[0] > '9')
+				return (2);
+		}
 		Contact::_phone_number = field;
+	}
 	else if (type == DSECRET)
 		Contact::_darkest_secret = field;
+	return (0);
 }
+
 
 void	Contact::set_data(void)
 {
+	int err = 0;
 	std::string buff;
 	for (int i = 0; i < 5; i++)
 	{
+		if (err)
+		{
+			i--;
+			err--;
+		}
 		if (i == FNAME)
 			std::cout << "First name: ";
 		else if (i == LNAME)
@@ -68,8 +86,18 @@ void	Contact::set_data(void)
 			std::cout << "Phone number: ";
 		else if (i == DSECRET)
 			std::cout << "Darkest secret: ";
-		std::cin >> buff;
-		Contact::set_field(i, buff);
-		//buff.erase();
+		if (!std::getline(std::cin, buff) || Contact::set_field(i, buff))
+		{
+			err = 1;
+			if (!buff.length())
+			{
+				std::cout << "Can't store empty field!" << std::endl;
+				if (std::cin.eof())
+					return;
+			}
+			else if (i == PNUMBER && buff.length())
+				std::cout << "Invalid Phone number!" << std::endl;
+		}
+
 	}
 }

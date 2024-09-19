@@ -16,7 +16,6 @@
 # include <iostream>
 # include <string>
 
-
 # define FNAME		0
 # define LNAME		1
 # define NNAME		2
@@ -34,9 +33,8 @@ class Contact
 	public:
 			Contact(void);
 			~Contact(void);
-			std::string 	get_field(std::string field) const;
-			void 			set_field(int type, std::string field);
-			//int			get_data() const;
+			std::string 	get_field(int type) const;
+			int 			set_field(int type, std::string field);
 			void			set_data(void);
 
 };

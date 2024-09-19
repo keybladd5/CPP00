@@ -10,4 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
+# include <iomanip>
+# include "Contact.hpp"
+
+
+class PhoneBook
+{
+	private:
+			Contact _contact[8];
+	public:
+			PhoneBook(void);
+			~PhoneBook(void);
+			void	add_command(int index);
+			void	show_all(int total);
+			void	search_command(int target, int total);
+			void	exit_command(void);
+};
+
+#endif

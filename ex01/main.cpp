@@ -10,11 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Contact.hpp"
+#include "PhoneBook.hpp"
 
 int main(void)
 {
-	Contact contact;
-	contact.set_data();
+	PhoneBook telepol;
+	
+	telepol.add_command(0);
+	telepol.add_command(1);
+	telepol.add_command(2);
+	telepol.add_command(3);
+	telepol.add_command(4);
+	telepol.show_all(5);
 	return (0); 
 }

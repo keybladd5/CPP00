@@ -16,9 +16,11 @@ CC		=	c++
 
 FLAGS	=	-g -Wall -Wextra -Werror -std=c++98 -MMD
 
-SRC		=	Contact.cpp main.cpp
+SRC		=	Contact.cpp main.cpp PhoneBook.cpp
 
 OBJ		=	$(SRC:.cpp=.o)
+
+INCLUDE = 	Contact.hpp PhoneBook.hpp
 
 DEPS	=	$(SRC:.cpp=.d)
 
@@ -33,7 +35,7 @@ YELLOW		=	\033[38;5;190m
 all		:	$(NAME)
 
 %.o:%.cpp Makefile
-	@$(CC) $(FLAGS) -I ./ -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME)	:	$(OBJ)
 		@$(CC) $(FLAGS) $(OBJ) -o $(NAME) 
