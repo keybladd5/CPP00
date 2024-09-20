@@ -36,6 +36,7 @@ class Contact
 			std::string 	get_field(int type) const;
 			int 			set_field(int type, std::string field);
 			void			set_data(void);
+			int				validation(void);
 
 };
 

@@ -14,12 +14,12 @@
 
 Contact::Contact(void)
 {
-	std::cout << "Contact constructor called" << std::endl;
+	//std::cout << "Contact constructor called" << std::endl;
 	return;
 }
 Contact::~Contact(void)
 {
-    std::cout << "Contact destructor called" << std::endl;
+    //std::cout << "Contact destructor called" << std::endl;
     return;
 }
 
@@ -27,15 +27,15 @@ std::string Contact::get_field(int type) const
 {
 	
 	if (type == FNAME)
-		return (Contact::_firstname);
+		return (_firstname);
 	else if (type == LNAME)
-		return (Contact::_lastname);
+		return (_lastname);
 	else if (type == NNAME)
-		return (Contact::_nickname);
+		return (_nickname);
 	else if (type == PNUMBER)
-		return (Contact::_phone_number);
+		return (_phone_number);
 	else if (type == DSECRET)
-		return (Contact::_darkest_secret);
+		return (_darkest_secret);
 	else
 		return ("");
 }
@@ -45,11 +45,11 @@ int	Contact::set_field(int type, std::string field)
 	if (!field.length())
 		return (1);
 	if (type == FNAME)
-		Contact::_firstname = field;
+		_firstname = field;
 	else if (type == LNAME)
-		Contact::_lastname = field;
+		_lastname = field;
 	else if (type == NNAME)
-		Contact::_nickname = field;
+		_nickname = field;
 	else if (type == PNUMBER)
 	{
 		for (int i = 0; i < (int)field.length(); i++)
@@ -57,10 +57,10 @@ int	Contact::set_field(int type, std::string field)
 			if (field[i] < '0' || field[0] > '9')
 				return (2);
 		}
-		Contact::_phone_number = field;
+		_phone_number = field;
 	}
 	else if (type == DSECRET)
-		Contact::_darkest_secret = field;
+		_darkest_secret = field;
 	return (0);
 }
 
@@ -86,7 +86,7 @@ void	Contact::set_data(void)
 			std::cout << "Phone number: ";
 		else if (i == DSECRET)
 			std::cout << "Darkest secret: ";
-		if (!std::getline(std::cin, buff) || Contact::set_field(i, buff))
+		if (!std::getline(std::cin, buff) || set_field(i, buff))
 		{
 			err = 1;
 			if (!buff.length())
@@ -100,4 +100,13 @@ void	Contact::set_data(void)
 		}
 
 	}
+}
+
+int		Contact::validation()
+{
+	if (_firstname.length() > 0 && _lastname.length() > 0 \
+	&& _nickname.length() > 0 && _phone_number.length() > 0 \
+	&& _darkest_secret.length() > 0)
+		return (1);
+	return (0);
 }

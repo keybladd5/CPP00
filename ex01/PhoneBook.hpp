@@ -21,13 +21,15 @@ class PhoneBook
 {
 	private:
 			Contact _contact[8];
+			int _index;
 	public:
 			PhoneBook(void);
 			~PhoneBook(void);
-			void	add_command(int index);
+			void	add_command(void);
+			int		get_contacts(void);
 			void	show_all(int total);
-			void	search_command(int target, int total);
-			void	exit_command(void);
+			void	search_command(int total);
+			int		exit_command(void);
 };
 
 #endif

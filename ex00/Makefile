@@ -14,7 +14,7 @@ NAME	=	megaphone
 
 CC		=	c++
 
-FLAGS	=	-g -Wall -Wextra -Werror -std=c++98 -fsanitize=address -MMD
+FLAGS	=	-g -Wall -Wextra -Werror -std=c++98 -fsanitize=address -MMD -pedantic
 
 SRC		=	megaphone.cpp
 

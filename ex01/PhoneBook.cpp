@@ -28,24 +28,37 @@ static std::string	get_justchars(std::string field)
 
 PhoneBook::PhoneBook(void)
 {
-	std::cout << "PhoneBook constructor called" << std::endl;
+	//std::cout << "PhoneBook constructor called" << std::endl;
+	PhoneBook::_index = 0;
 	return;
 } 
 PhoneBook::~PhoneBook(void)
 {
-    std::cout << "PhoneBook destructor called" << std::endl;
+    //std::cout << "PhoneBook destructor called" << std::endl;
     return;
 }
 
 //Subject -> A saved contact can’t have empty fields.
-void	PhoneBook::add_command(int index)
+void	PhoneBook::add_command()
 {
-	_contact[index].set_data();
+	if (_index > 7)
+		_index = 0;
+	_contact[_index].set_data();
+	_index++;
 }
 
-void	PhoneBook::exit_command()
+int		PhoneBook::exit_command()
 {
 	std::cout << "Sayonara :$" << std::endl;
+	return (0);
+}
+
+int		PhoneBook::get_contacts(void)
+{
+	int i = 0;
+	while (_contact[i].validation())
+		i++;
+	return (i);
 }
 
 void	PhoneBook::show_all(int total)
@@ -60,17 +73,40 @@ void	PhoneBook::show_all(int total)
 	}
 }
 
-void	PhoneBook::search_command(int target, int total)
+void	PhoneBook::search_command(int total)
 {
-	PhoneBook::show_all(total);
-	target = std::getchar();
-	if (!std::isdigit(target))
+	std::string target;
+	int tmp = 0;
+
+	// print("INDEX| FIRST NAME| LAST NAME| NICKNAME")
+	show_all(total);
+	std::cout << "Index: ";
+	while(!std::getline(std::cin, target) || target.length() > 1)
 	{
 		std::cout << "Only 0 - 7 index target allowed!" << std::endl;
+		if (std::cin.eof())
+			return;
+		std::cout << "Index: ";
+	}
+	tmp = target[0] - '0';
+	if (tmp > total || !(tmp == 0 && get_contacts() == 1))
+	{
+		std::cout << "Empty contact" << std::endl;
 		return;
 	}
-	std::cout << "|" << std::right << std::setw(10) << target;
+	_index = tmp;
 	for (int x = 0; x < 5; x++)
-		std::cout << "|" << std::right << std::setw(10) << get_justchars(_contact[target].get_field(x));
-	std::cout << "|" << std::endl;
+	{
+		if (x == FNAME)
+			std::cout << "First name: ";
+		else if (x == LNAME)
+			std::cout << "Last name: ";
+		else if (x == NNAME)
+			std::cout << "Nick name: ";
+		else if (x == PNUMBER)
+			std::cout << "Phone number: ";
+		else if (x == DSECRET)
+			std::cout << "Darkest secret: ";
+		std::cout << _contact[_index].get_field(x) << std::endl; //contactSSSSSSSSSSSSSSSS
+	}
 }

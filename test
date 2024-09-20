@@ -1,0 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex00.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: polmarti <polmarti@student.42barcelon      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/13 18:32:21 by polmarti          #+#    #+#             */
+/*   Updated: 2024/09/13 18:32:24 by polmarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <iostream>
+#include <cstdlib>
+
+int main(void)
+{
+    std::string str = "HOLA";
+    std::string *ptr = &str;
+    std::string &ref = str;
+
+    std::cout << &str << std::endl << ptr << std::endl << ref << std::endl;
+    ref = "ADIOS";
+    std::cout << str << std::endl << *ptr << std::endl << ref << std::endl;
+    /*
+    for (int i = 0; i != 5; i++)
+    {
+        std::cout << "Input: ";
+        if ()
+        std::cout << str << std::endl;
+        std::cin >> str;
+        std::cout << str << std::endl;
+        str = "";
+    }*/
+    return (0);    
+}
