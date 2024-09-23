@@ -28,22 +28,19 @@ static std::string	get_justchars(std::string field)
 
 PhoneBook::PhoneBook(void)
 {
-	//std::cout << "PhoneBook constructor called" << std::endl;
 	PhoneBook::_index = 0;
 	return;
 } 
 PhoneBook::~PhoneBook(void)
 {
-    //std::cout << "PhoneBook destructor called" << std::endl;
     return;
 }
 
-//Subject -> A saved contact can’t have empty fields.
 void	PhoneBook::add_command()
 {
 	if (_index > 7)
 		_index = 0;
-	_contact[_index].set_data();
+	_contacts[_index].set_data();
 	_index++;
 }
 
@@ -56,47 +53,35 @@ int		PhoneBook::exit_command()
 int		PhoneBook::get_contacts(void)
 {
 	int i = 0;
-	while (_contact[i].validation())
+	while (_contacts[i].validation())
 		i++;
-	return (i);
+	return (i - 1);
 }
 
 void	PhoneBook::show_all(int total)
 {
-
+	std::cout << "|" << std::right << std::setw(10) << "INDEX";
+	std::cout << "|" << std::right << std::setw(10) << "FIRSTNAME";
+	std::cout << "|" << std::right << std::setw(10) << "LASTNAME";
+	std::cout << "|" << std::right << std::setw(10) \
+	<< "NICKNAME" << "|" << std::endl;
 	for (int i = 0; i < total; i++)
 	{
 		std::cout << "|" << std::right << std::setw(10) << i;
 		for (int x = 0; x < 3; x++)
-			std::cout << "|" << std::right << std::setw(10) << get_justchars(_contact[i].get_field(x));
+		{
+			std::cout << " x -> " << x << " total -> " << total << "i ->" << i << std::endl;
+			std::cout << "|" << std::right << std::setw(10) << get_justchars(_contacts[i].get_field(x));
+		}
 		std::cout << "|" << std::endl;
 	}
 }
 
-void	PhoneBook::search_command(int total)
+void	PhoneBook::print_all(int nb_target)
 {
-	std::string target;
-	int tmp = 0;
-
-	// print("INDEX| FIRST NAME| LAST NAME| NICKNAME")
-	show_all(total);
-	std::cout << "Index: ";
-	while(!std::getline(std::cin, target) || target.length() > 1)
-	{
-		std::cout << "Only 0 - 7 index target allowed!" << std::endl;
-		if (std::cin.eof())
-			return;
-		std::cout << "Index: ";
-	}
-	tmp = target[0] - '0';
-	if (tmp > total || !(tmp == 0 && get_contacts() == 1))
-	{
-		std::cout << "Empty contact" << std::endl;
-		return;
-	}
-	_index = tmp;
 	for (int x = 0; x < 5; x++)
 	{
+		//std::cout << " x -> " << x << " nb_target -> " << nb_target << std::endl;
 		if (x == FNAME)
 			std::cout << "First name: ";
 		else if (x == LNAME)
@@ -107,6 +92,31 @@ void	PhoneBook::search_command(int total)
 			std::cout << "Phone number: ";
 		else if (x == DSECRET)
 			std::cout << "Darkest secret: ";
-		std::cout << _contact[_index].get_field(x) << std::endl; //contactSSSSSSSSSSSSSSSS
+		std::cout << _contacts[nb_target].get_field(x) << std::endl;
 	}
+}
+
+void	PhoneBook::search_command(int total)
+{
+	std::string target;
+	int nb_target = 0;
+	show_all(total);
+	std::cout << "Index: ";
+	while(!std::getline(std::cin, target) || target.length() > 1 || _contacts[0].isdigit_str(target))
+	{
+		std::cout << "Only 0 - 7 index target allowed!" << std::endl;
+		if (std::cin.eof())
+			return;
+		std::cout << "Index: ";
+	}
+	nb_target = target[0] - '0';
+	if (nb_target > total || (nb_target >= total && nb_target >= 8))
+	{
+		if (nb_target == 8 || nb_target == 9)
+			std::cout << "Only 0 - 7 index target allowed!" << std::endl;
+		else
+			std::cout << "Empty contact" << std::endl;
+		return;
+	}
+	print_all(nb_target);
 }

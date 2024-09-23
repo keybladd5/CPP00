@@ -15,7 +15,7 @@
 int main(void)
 {
 	PhoneBook	telepol;
-	std::string	buff;
+	std::string	buff = "";
 	int total = 0;
 	
 	std::cout << "Welcome to ur amazing PhoneBook!" << std::endl;

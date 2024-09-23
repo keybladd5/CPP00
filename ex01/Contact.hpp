@@ -34,6 +34,7 @@ class Contact
 			Contact(void);
 			~Contact(void);
 			std::string 	get_field(int type) const;
+			int				isdigit_str(std::string);
 			int 			set_field(int type, std::string field);
 			void			set_data(void);
 			int				validation(void);

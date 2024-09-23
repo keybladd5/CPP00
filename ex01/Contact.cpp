@@ -14,18 +14,30 @@
 
 Contact::Contact(void)
 {
-	//std::cout << "Contact constructor called" << std::endl;
+	_firstname = "";
+	_lastname = "";
+	_nickname = "";
+	_phone_number = "";
+	_darkest_secret = "";
 	return;
 }
 Contact::~Contact(void)
 {
-    //std::cout << "Contact destructor called" << std::endl;
     return;
 }
-
+int	Contact::isdigit_str(std::string str)
+{
+	if (!(int)str.length())
+		return (1);
+	for (int i = 0; i < (int)str.length(); i++)
+	{
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			return (1);
+	}
+	return (0);
+}
 std::string Contact::get_field(int type) const
 {
-	
 	if (type == FNAME)
 		return (_firstname);
 	else if (type == LNAME)
@@ -52,11 +64,8 @@ int	Contact::set_field(int type, std::string field)
 		_nickname = field;
 	else if (type == PNUMBER)
 	{
-		for (int i = 0; i < (int)field.length(); i++)
-		{
-			if (field[i] < '0' || field[0] > '9')
-				return (2);
-		}
+		if (isdigit_str(field))
+			return (1);
 		_phone_number = field;
 	}
 	else if (type == DSECRET)

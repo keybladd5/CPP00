@@ -20,7 +20,7 @@
 class PhoneBook
 {
 	private:
-			Contact _contact[8];
+			Contact _contacts[8];
 			int _index;
 	public:
 			PhoneBook(void);
@@ -28,6 +28,7 @@ class PhoneBook
 			void	add_command(void);
 			int		get_contacts(void);
 			void	show_all(int total);
+			void	print_all(int nb_target);
 			void	search_command(int total);
 			int		exit_command(void);
 };
