@@ -80,7 +80,6 @@ void	PhoneBook::print_all(int nb_target)
 {
 	for (int x = 0; x < 5; x++)
 	{
-		//std::cout << " x -> " << x << " nb_target -> " << nb_target << std::endl;
 		if (x == FNAME)
 			std::cout << "First name: ";
 		else if (x == LNAME)
