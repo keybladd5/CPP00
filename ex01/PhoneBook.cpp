@@ -53,7 +53,7 @@ int		PhoneBook::exit_command()
 int		PhoneBook::get_contacts(void)
 {
 	int i = 0;
-	while (_contacts[i].validation())
+	while ( i <= 7 && _contacts[i].validation())
 		i++;
 	return (i - 1);
 }
@@ -65,15 +65,14 @@ void	PhoneBook::show_all(int total)
 	std::cout << "|" << std::right << std::setw(10) << "LASTNAME";
 	std::cout << "|" << std::right << std::setw(10) \
 	<< "NICKNAME" << "|" << std::endl;
-	for (int i = 0; i < total; i++)
+	for (int i = 0; i <= total; i++)
 	{
 		std::cout << "|" << std::right << std::setw(10) << i;
 		for (int x = 0; x < 3; x++)
-		{
-			std::cout << " x -> " << x << " total -> " << total << "i ->" << i << std::endl;
 			std::cout << "|" << std::right << std::setw(10) << get_justchars(_contacts[i].get_field(x));
-		}
 		std::cout << "|" << std::endl;
+		if (i == 7)
+			break;
 	}
 }
 

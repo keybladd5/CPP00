@@ -14,10 +14,9 @@
 
 int main(void)
 {
-	PhoneBook	telepol;
+	PhoneBook	main_phone;
 	std::string	buff = "";
 	int total = 0;
-	
 	std::cout << "Welcome to ur amazing PhoneBook!" << std::endl;
 	while (1)
 	{
@@ -28,15 +27,14 @@ int main(void)
 				return(1);
 		}
 		else if (buff == "ADD")
-			telepol.add_command();
+			main_phone.add_command();
 		else if (buff == "SEARCH")
 		{
-			//hay que comprobar cuantos contactos hay?
-			total = telepol.get_contacts();
-			telepol.search_command(total);
+			total = main_phone.get_contacts();
+			main_phone.search_command(total);
 		}
 		else if (buff == "EXIT")
-			return (telepol.exit_command());
+			return (main_phone.exit_command());
 		else
 			std::cout << "Only ADD/ SEARCH/ EXIT allowed" << std::endl;
 	}

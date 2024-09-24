@@ -73,6 +73,19 @@ int	Contact::set_field(int type, std::string field)
 	return (0);
 }
 
+static int	handler_error_data(std::string buff, int *err, int i)
+{
+	*err = 1;
+	if (!buff.length())
+	{
+		std::cout << "Can't store empty field!" << std::endl;
+		if (std::cin.eof())
+			return (1);
+	}
+	else if (i == PNUMBER && buff.length())
+		std::cout << "Invalid Phone number!" << std::endl;
+	return (0);
+}
 
 void	Contact::set_data(void)
 {
@@ -97,17 +110,9 @@ void	Contact::set_data(void)
 			std::cout << "Darkest secret: ";
 		if (!std::getline(std::cin, buff) || set_field(i, buff))
 		{
-			err = 1;
-			if (!buff.length())
-			{
-				std::cout << "Can't store empty field!" << std::endl;
-				if (std::cin.eof())
-					return;
-			}
-			else if (i == PNUMBER && buff.length())
-				std::cout << "Invalid Phone number!" << std::endl;
+			if (handler_error_data(buff, &err, i))
+				return;
 		}
-
 	}
 }
 
