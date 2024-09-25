@@ -28,7 +28,7 @@ static std::string	get_justchars(std::string field)
 
 PhoneBook::PhoneBook(void)
 {
-	PhoneBook::_index = 0;
+	_index = 0;
 	return;
 } 
 PhoneBook::~PhoneBook(void)
