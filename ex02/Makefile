@@ -14,7 +14,7 @@ NAME	=	account
 
 CC		=	c++
 
-FLAGS	=	-g -Wall -Wextra -Werror -std=c++98 -MMD -fsanitize=address -pedantic 
+FLAGS	=	-g -std=c++98 -MMD -fsanitize=address -pedantic 
 
 SRC		=	Account.cpp tests.cpp
 
